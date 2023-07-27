@@ -2,7 +2,7 @@
  *@NApiVersion 2.x
  *@NScriptType UserEventScript
 */
-define (['N/record', 'N/log', 'N/https'] , function(record, log, https) {
+define (['N/log', 'N/https'] , function(log, https) {
     function myAfterSubmit (context) {
         try {
             // 
