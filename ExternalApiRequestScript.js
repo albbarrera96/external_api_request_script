@@ -8,13 +8,11 @@ define (['N/record', 'N/log', 'N/https'] , function(record, log, https) {
             // 
             if (context.type === context.UserEventType.EDIT)
             {
-                var response = https.get({
-                    url: 'https://jsonplaceholder.typicode.com/todos/1',
-                });
+                var response = https.get({url:'https://jsonplaceholder.typicode.com/todos/1'});
                 if(response.code === 200){
-                    var body = response.body;
-                    log.debug('This is a successful request to JSONPlaceholder: ', body);
-                    /*  This should be the response: {
+                    var responseBody = response.body;
+                    log.debug('This is a successful request to JSONPlaceholder: ' + responseBody);
+                    /*  Sample response: {
                             "userId": 1,
                             "id": 1,
                             "title": "delectus aut autem",
@@ -31,14 +29,15 @@ define (['N/record', 'N/log', 'N/https'] , function(record, log, https) {
             }
         }
         // Handle errors.
-        catch (error) {
-            log.error("There's been an error. Check the following message: " + error.message);
+        catch (e) {
+            log.error({
+                title: 'Error',
+                details: e
+            });
         }                     
     }
-    // Add the return statement that identifies the entry point funtions.
+    // Add the return statement that identifies the entry point functions.
     return {
         afterSubmit: myAfterSubmit,
     };   
-}); 
-
-      
+});   
