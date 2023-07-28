@@ -5,30 +5,34 @@
 define (['N/log', 'N/https'] , function(log, https) {
     function myAfterSubmit (context) {
         try {
-            // 
+            // Step 1: Define the User Event that will trigger the script.
             if (context.type === context.UserEventType.EDIT)
             {
+            // Step 2: Make the request to the API (include headers data, parameters or credentials if needed).
                 var response = https.get({url:'https://jsonplaceholder.typicode.com/todos/1'});
+            // Step 3: Handle the response.    
                 if(response.code === 200){
                     var responseBody = response.body;
-                    log.debug('This is a successful request to JSONPlaceholder: ' + responseBody);
-                    /*  Sample response: {
-                            "userId": 1,
-                            "id": 1,
-                            "title": "delectus aut autem",
-                            "completed": false
-                        } 
+                    log.debug('Successful request to JSONPlaceholder: ' + responseBody);
+                    /*  
+                        *Optional* Add a sample response to the log.debug() statement.
+                            Sample response: {
+                                "userId": 1,
+                                "id": 1,
+                                "title": "delectus aut autem",
+                                "completed": false
+                            } 
                     */ 
                 } 
                 else {
-                    log.error("There's been an error on the request " + "Code: " + response.code);
+                    log.error("Error on the request " + "Code: " + response.code);
                 }
             }
             else{
                 return
             }
         }
-        // Handle errors.
+        // Step 4: Handle any error.
         catch (e) {
             log.error({
                 title: 'Error',
@@ -36,7 +40,7 @@ define (['N/log', 'N/https'] , function(log, https) {
             });
         }                     
     }
-    // Add the return statement that identifies the entry point functions.
+    // Step 5: Add the return statement that identifies the entry point functions.
     return {
         afterSubmit: myAfterSubmit,
     };   
